@@ -5,9 +5,9 @@ public class Act1
         int n = 5;
         double a = 4.44;
         char c = 'a';
-        dobule prueba = .5;
+        //dobule prueba = .5;
 
-        System.out.println(prueba);
+        //System.out.println(prueba);
         System.out.println(n);
         System.out.println(a);
         System.out.println(c);
