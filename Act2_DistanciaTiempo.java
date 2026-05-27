@@ -1,4 +1,5 @@
 // Sofía Maldonado
+// Andrea Angulo Flores
 
 import javax.swing.JOptionPane;
 
@@ -28,7 +29,7 @@ public class Act2_DistanciaTiempo
         km_min = velocidad/60;
         min_restantes = distancia_restante / km_min;
 
-        if ((distancia_restante/km_min) > min_para_llegar)
+        if ((min_restantes) > min_para_llegar)
         {
             JOptionPane.showMessageDialog(null, "No vas a llegar a tiempo", "Resultado", JOptionPane.WARNING_MESSAGE);
         } else
