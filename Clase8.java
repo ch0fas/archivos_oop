@@ -19,6 +19,5 @@ public class Clase8
         System.out.println(d2.monthName());
         System.out.println(d3.toString());
 
-        //System.out.println((System.currentTimeMillis())/(24*60*60));
     }
 }

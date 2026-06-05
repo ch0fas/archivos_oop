@@ -75,7 +75,7 @@ public class Date
         switch (this.month)
         {
             case 2:
-            if (isBisiesto())
+            if (isBisiesto(this.year))
             {
                 return this.day <= 29;
             } else
@@ -97,9 +97,50 @@ public class Date
         return String.format("%d de %s de %d", this.day, months[this.month - 1], this.year);
     }
 
-    //Helper Functions
-    private boolean isBisiesto()
+    public int daysSinceEpoch()
     {
-        return(this.year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? true: false;
+        int days_counter = 0;
+        for (int i = 1970; i < this.year; i++)
+        {
+            if (isBisiesto(i))
+            {
+                days_counter += 366;
+            } else days_counter += 365;
+        }
+
+        for (int i = 1; i < this.month; i++)
+        {
+            switch (i)
+            {
+                case 2:
+                if (isBisiesto(this.year))
+                {
+                    days_counter += 29;
+                    break;
+                } else
+                {
+                    days_counter += 28;
+                    break;
+                }
+                case 1, 3, 5, 7, 8, 10, 12:
+                days_counter += 31;
+                break;
+                default:
+                days_counter += 30;
+                break;
+            }
+        }
+        for (int i = 1; i < this.day; i++)
+        {
+            days_counter++;
+        }
+
+        return days_counter; // NOTA: Este contador no incluye el día actual en el cálculo, para que si pones 2/1/1970 te cuente que ha sido un (1) día desde el epoch y no dos (2)
+    }
+
+    //Helper Functions
+    private boolean isBisiesto(int year)
+    {
+        return(year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? true: false;
     }
 }
