@@ -7,6 +7,32 @@ public class Rectangle
     private int posX = 0;
     private int posY = 0;
 
+    // Constructores
+    public Rectangle(double base, double height, int posX, int posY)
+    {
+        if (base > 0)
+        {
+            this.base = base;
+        } else this.base = 1;
+
+        if (height > 0)
+        {
+            this.height = height;
+        } else this.height = 1;
+
+        if (posX >= 0)
+        {
+            this.posX = posX;
+        } else this.posX = 1;
+
+        if (posY >= 0)
+        {
+            this.posY = posY;
+        } else this.posY = 1;
+
+    }
+
+
     // Setters, métodos para establecer valores válidos de atributos
     public void setBase(double base)
     {
@@ -70,5 +96,15 @@ public class Rectangle
     public int getPosY()
     {
         return posY;
+    }
+
+    public String toString()
+    {
+        return String.format("Base: %.2f. Altura: %.2f\nÁrea: %.2f. Perímetro: %.2f", getBase(), getHeight(), getArea(), getPerimeter());
+    }
+
+    protected void finalize()
+    {
+        System.out.println("Se destruye "+this);
     }
 }

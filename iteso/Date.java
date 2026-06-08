@@ -92,11 +92,6 @@ public class Date
         }
     }
 
-    public String toString()
-    {
-        return String.format("%d de %s de %d", this.day, months[this.month - 1], this.year);
-    }
-
     public int daysSinceEpoch()
     {
         int days_counter = 0;
@@ -136,6 +131,26 @@ public class Date
         }
 
         return days_counter; // NOTA: Este contador no incluye el día actual en el cálculo, para que si pones 2/1/1970 te cuente que ha sido un (1) día desde el epoch y no dos (2)
+    }
+
+    // Métodos Adicionales
+    public String toString()
+    {
+        return String.format("Date: {\"Day\": %d, \"Month\": %d, \"Year\": %d}", getDay(), getMonth(), getYear());
+    }
+
+    public boolean equals(Object o)
+    {
+        if (o instanceof Date)
+        {
+            Date c = (Date) o;
+            return this.getDay() == c.getDay() && this.getMonth() == c.getMonth() && this.getYear() == c.getYear();
+        } else return false;
+    }
+
+    public Date clone()
+    {
+        return new Date(this.year, this.month, this.day);
     }
 
     //Helper Functions
