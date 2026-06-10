@@ -6,10 +6,13 @@ public class Date
     private int day;
     private int month;
     private int year;
-    private String[] months = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
-    private final int JANUARY=1, FEBRUARY = 2, MARCH=3, APRIL=4, MAY=5, JUNE=6, JULY=7, AUGUST=8, SEPTEMBER=9, OCTOBER=10, NOVEMBER=11, DECEMBER=12;
-    private final int SUNDAY = 0, MONDAY=1, TUESDAY=2, WEDNESDAY=3, THURSDAY=4, FRIDAY=5, SATURDAY=6;
+    private static final String[] months = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+    private static final String[] days_week = {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
+    public static final int JANUARY=1, FEBRUARY = 2, MARCH=3, APRIL=4, MAY=5, JUNE=6, JULY=7, AUGUST=8, SEPTEMBER=9, OCTOBER=10, NOVEMBER=11, DECEMBER=12;
+    public static final int SUNDAY = 0, MONDAY=1, TUESDAY=2, WEDNESDAY=3, THURSDAY=4, FRIDAY=5, SATURDAY=6;
     private final int FIRST_DAY, FIRST_MONTH, FIRST_YEAR;
+
+    public static int instances_count;
 
     // Constructores
     public Date()
@@ -21,6 +24,8 @@ public class Date
         this.FIRST_DAY = this.day;
         this.FIRST_MONTH = this.month;
         this.FIRST_YEAR = this.year;
+
+        instances_count++;
     }
 
     public Date(int year, int month, int day)
@@ -32,6 +37,72 @@ public class Date
         this.FIRST_DAY = day;
         this.FIRST_MONTH = month;
         this.FIRST_YEAR = year;
+
+        instances_count++;
+    }
+
+    // Métodos de Clase
+    public static int getInstancesCount()
+    {
+        return instances_count;
+    }
+
+    public static int dayOfWeek(int year, int month, int day)
+    {
+        Date d = new Date(year, month, day);
+
+        // Aprovechando la función daysSinceEpoch, el 01/01/1970 fue un jueves
+        if (!d.isValid())
+        {
+            return -1;
+        }
+
+        int epochWeekday = THURSDAY;
+
+        return (epochWeekday + d.daysSinceEpoch()) % 7;
+    }
+
+    public static String dayOfWeekName(int day)
+    {
+        if (day >= 0 && day <= 6)
+        {
+            return days_week[day];
+        } else return null;
+    }
+
+    public static String classMonthName(int month)
+    {
+        if (month >= 1 && month <= 12)
+        {
+            return months[month-1];
+        } else return null;
+    }
+
+    public static boolean classLeap(int year)
+    {
+        return(year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? true: false;
+    }
+
+    public static boolean classValid(int year, int month, int day)
+    {
+        switch (month)
+        {
+            case FEBRUARY:
+            if (classLeap(year))
+            {
+                return day <= 29;
+            } else
+            {
+                return day <= 28;
+            }
+            case JANUARY,MARCH,MAY,JULY,AUGUST,OCTOBER,DECEMBER:
+            return day <= 31;
+            case APRIL, JUNE, SEPTEMBER,NOVEMBER:
+            return day <= 30;
+            default:
+            return false;
+
+        }
     }
 
     //Setters
