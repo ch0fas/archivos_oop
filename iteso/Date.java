@@ -1,4 +1,5 @@
 package iteso;
+import java.util.Calendar;
 
 public class Date
 {
@@ -17,9 +18,10 @@ public class Date
     // Constructores
     public Date()
     {
-        this.day = 1;
-        this.month = 1;
-        this.year = 1970;
+        Calendar cal = Calendar.getInstance();
+        this.day = cal.get(Calendar.DATE);
+        this.month = cal.get(Calendar.MONTH + 1); // Porque en mi clase Date el mes empieza en 1 pero en Calendar el mes empieza en cero
+        this.year = cal.get(Calendar.YEAR);
 
         this.FIRST_DAY = this.day;
         this.FIRST_MONTH = this.month;
