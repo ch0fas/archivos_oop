@@ -17,12 +17,12 @@ public class LibraryDatabase
         return instance;
     }
 
-    protected void add_book()
+    void add_book()
     {
         total_books_borrowed++;
     }
 
-    protected void remove_book()
+    void remove_book()
     {
         total_books_borrowed--;
     }
