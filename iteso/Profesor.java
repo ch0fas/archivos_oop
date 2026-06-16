@@ -1,6 +1,6 @@
 package iteso;
 
-public class Profesor extends Persona 
+public class Profesor extends Persona
 {
     // Atributos especiales
     protected String gradoAcademico;
@@ -58,6 +58,6 @@ public class Profesor extends Persona
 
     @Override public String toString()
     {
-        return String.format("");
+        return String.format("Profesor!\nNombre: %s %s %s\nGenero: %s\nEdad: %d\nGrado: %s\nDepartamento: %s\nJornada Laboral: %d", getName(), getPaterno(), getMaterno(), getGender(), getEdad(), getGrado(), getDepa(), getJornada());
     }
 }
