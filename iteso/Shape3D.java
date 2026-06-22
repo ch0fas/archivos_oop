@@ -1,13 +1,13 @@
 package iteso;
 
-public abstract class Shape3D 
+public abstract class Shape3D
 {
     // Atts
     protected int x;
     protected int y;
-    protected int z; 
+    protected int z;
 
-    
+
     // Get Instances
     public static Shape3D getSphere(int x, int y, int z, double radio)
     {
@@ -17,6 +17,11 @@ public abstract class Shape3D
     public static Shape3D getCylinder(int x, int y, int z, double radio, double altura)
     {
         return new Cylinder(x, y, z, radio, altura);
+    }
+
+    public static Shape3D getBox(int x, int y, int z, double lado)
+    {
+        return new Box(x,y,z,lado);
     }
 
     // Métodos
