@@ -6,10 +6,10 @@ public class Motherboard
     protected int brand;
     protected String model;
     protected int socket;
-    protected Memory memory_type; // Agregación
-    protected Cpu processor; 
-    protected Storage storage; 
-    protected USB[] ports = new USB[6];
+    protected Memory memory_type; // Asociación
+    protected Cpu processor; // Asociación
+    protected Storage storage; // Asociación
+    protected Usb[] ports = new Usb[6]; // Agregación, no es común cambiar el IO de una tarjeta madre
     public static final int ASUS = 0, MSI = 1, GIGABYTE = 2, ASROCK = 3;
     public static final int INTEL = 0, AMD = 1;
     public static final String[] brands = {"Asus", "MSI", "Gigabyte", "ASRock"};
@@ -23,15 +23,15 @@ public class Motherboard
         this.memory_type = new Memory();
         this.processor = new Cpu(Cpu.R5, 6, 3.6);
         this.storage = new Storage();
-        this.USB = {new USB(), new USB(), new USB(), new USB(), new USB(), new USB()};
+        this.ports = new Usb[] {new Usb(4), new Usb(4), new Usb(4), new Usb(4), new Usb(4), new Usb(4)};
     }
 
-    public Motherboard(int brand, String model, int socket, int mem_type, Cpu processor, Storage storage, USB[] usb)
+    public Motherboard(int brand, String model, int socket, Memory memory, Cpu processor, Storage storage, Usb[] usb)
     {
         setBrand(brand);
         setModel(model);
         setSocket(socket);
-        setMemory(mem_type);
+        setMemory(memory);
         setProcessor(processor);
         setStorage(storage);
         setUSB(usb);
@@ -74,11 +74,15 @@ public class Motherboard
         this.storage = storage;
     }
 
-    public void setUSB(USB[] ports)
+    public void setUSB(Usb[] ports)
     {
         this.ports = ports;
     }
 
+    public String toString()
+    {
+        return String.format("MOTHERBOARD\nModel: %s\nRAM: %dGB\nProcessor: {Cores: %d, Clock Speed: %.2f}\nStorage: %dGB", this.model, this.memory_type.getCapacity(), this.processor.getCores(), this.processor.getSpeed(), this.storage.getCapacity());
+    }
 
 
 
