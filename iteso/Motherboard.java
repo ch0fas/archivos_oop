@@ -3,11 +3,11 @@ package iteso;
 public class Motherboard
 {
     // Atributos
-    protected int brand;
+    protected Brand brand;
     protected String model;
     protected int socket;
     protected Memory memory_type; // Asociación
-    protected Cpu processor; // Asociación
+    protected Processors processor; // Asociación
     protected Storage storage; // Asociación
     protected Usb[] ports = new Usb[6]; // Agregación, no es común cambiar el IO de una tarjeta madre
     public static final int ASUS = 0, MSI = 1, GIGABYTE = 2, ASROCK = 3;
@@ -17,16 +17,16 @@ public class Motherboard
 
     public Motherboard()
     {
-        this.brand = Motherboard.ASUS;
+        this.brand = Brand.ASUS;
         this.model = "B550";
         this.socket = Motherboard.AMD;
         this.memory_type = new Memory();
-        this.processor = new Cpu(Cpu.R5, 6, 3.6);
+        this.processor = Processors.RYZEN5;
         this.storage = new Storage();
         this.ports = new Usb[] {new Usb(4), new Usb(4), new Usb(4), new Usb(4), new Usb(4), new Usb(4)};
     }
 
-    public Motherboard(int brand, String model, int socket, Memory memory, Cpu processor, Storage storage, Usb[] usb)
+    public Motherboard(Brand brand, String model, int socket, Memory memory, Processors processor, Storage storage, Usb[] usb)
     {
         setBrand(brand);
         setModel(model);
@@ -38,12 +38,16 @@ public class Motherboard
     }
 
     // Setters
-    public void setBrand(int brand)
+    public void setBrand(Brand brand)
     {
-        if (brand >= 0 && brand <= 3)
+        for (Brand e:Brand.values())
         {
-            this.brand = brand;
-        } else this.brand = Motherboard.ASUS;
+            if (e == brand)
+            {
+                this.brand = brand;
+            }
+        }
+        if (this.brand == null) this.brand = Brand.ASUS;
     }
 
     public void setModel(String model)
@@ -64,9 +68,16 @@ public class Motherboard
         this.memory_type = memory;
     }
 
-    public void setProcessor(Cpu processor)
+    public void setProcessor(Processors processor)
     {
-        this.processor = processor;
+        for (Processors e:Processors.values())
+        {
+            if (e == processor)
+            {
+                this.processor = processor;
+            }
+        }
+        if (this.processor == null) this.processor = Processors.RYZEN5;
     }
 
     public void setStorage(Storage storage)
@@ -78,13 +89,5 @@ public class Motherboard
     {
         this.ports = ports;
     }
-
-    public String toString()
-    {
-        return String.format("MOTHERBOARD\nModel: %s\nRAM: %dGB\nProcessor: {Cores: %d, Clock Speed: %.2f}\nStorage: %dGB", this.model, this.memory_type.getCapacity(), this.processor.getCores(), this.processor.getSpeed(), this.storage.getCapacity());
-    }
-
-
-
 
 }
