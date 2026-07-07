@@ -1,6 +1,6 @@
 package geometry.shapes2d;
 
-public class Rectangle
+public class Rectangle implements Comparable<Rectangle>
 {
     public double base = 0.0;
     public double height = 0.0;
@@ -106,5 +106,19 @@ public class Rectangle
     protected void finalize()
     {
         System.out.println("Se destruye "+this);
+    }
+
+    public int compareTo(Rectangle r)
+    {
+        if (this.getArea() > r.getArea())
+        {
+            return 1;
+        } else if (this.getArea() == r.getArea())
+        {
+            return 0;
+        } else 
+        {
+            return -1;
+        }
     }
 }
