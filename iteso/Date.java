@@ -1,5 +1,6 @@
 package iteso;
 import java.util.Calendar;
+import java.util.Random;
 
 public class Date
 {
@@ -12,6 +13,8 @@ public class Date
     public static final int JANUARY=1, FEBRUARY = 2, MARCH=3, APRIL=4, MAY=5, JUNE=6, JULY=7, AUGUST=8, SEPTEMBER=9, OCTOBER=10, NOVEMBER=11, DECEMBER=12;
     public static final int SUNDAY = 0, MONDAY=1, TUESDAY=2, WEDNESDAY=3, THURSDAY=4, FRIDAY=5, SATURDAY=6;
     private final int FIRST_DAY, FIRST_MONTH, FIRST_YEAR;
+    private static int equals_calls;
+    private static int hc_calls;
 
     public static int instances_count;
 
@@ -169,6 +172,9 @@ public class Date
         return months[this.month - 1];
     }
 
+    public int getEqualsCalls() { return equals_calls; }
+    public int getHcCalls() { return hc_calls; }
+
     public boolean isValid()
     {
         switch (this.month)
@@ -240,6 +246,7 @@ public class Date
 
     public boolean equals(Object o)
     {
+        equals_calls++;
         if (o instanceof Date)
         {
             Date c = (Date) o;
@@ -256,5 +263,22 @@ public class Date
     private boolean isBisiesto(int year)
     {
         return(year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? true: false;
+    }
+
+    public static Date randomDate()
+    {
+        Random r = new Random();
+        int day = r.nextInt(28-1+1) + 1;
+        int month = r.nextInt(12-1+1) + 1;
+        int year = r.nextInt(2100-1900+1) + 1900;
+
+        hc_calls++;
+
+        return new Date(year, month, day);
+    }
+
+    public int hashCode()
+    {
+        return 366 * year + month << 5 + day;
     }
 }
